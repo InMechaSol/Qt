@@ -1,15 +1,19 @@
 #ifndef QCCOS_H
 #define QCCOS_H
 
-#include <cmath>
-#include <climits>
-#include "motionControl.h"
+// ccNOos and ccOS
+#include "os_execution_system.hpp"
+#include "packets_api.h"
+// Qt
 #include <QObject>
 #include <QList>
 #include <QPointF>
 #include <QChartView>
 #include <QLineSeries>
 #include <QTreeWidget>
+#include <QLabel>
+#include <QTime>
+#include <QTimer>
 
 struct maxMinstruct
 {
@@ -19,6 +23,8 @@ struct maxMinstruct
   float maxY = -std::numeric_limits<float>::max();
 };
 #define LINESERIESSAMPLES 1024
+
+
 
 class qSPDChart;
 
@@ -50,18 +56,7 @@ public:
     void resetHasNewData();
 };
 
-// Motion Control, Smart Motor, Axis - Line Series Mapping via SPD
-// Makes each Axis SPD plotable
-class AxisLineSeriesMap
-{
-private:
-    AxisSPD spd;
-    SPDLineSeries spdLine;
 
-public:
-    AxisLineSeriesMap(enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn, qSPDChart* spdChartPtr);//, int* plotWindowStartIn, int* plotWindowSamplesIn);
-    SPDLineSeries* getLine();
-};
 
 enum guiSPDSelector
 {
@@ -146,17 +141,6 @@ public:
     void* GetDataPtrIn();
 };
 
-
-// inherit from base class
-class AxisSPDTreeWidgetItem:public SPDTreeWidgetItem
-{
-private:
-    AxisSPD spd;
-public:
-    AxisSPDTreeWidgetItem(enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn);
-    enum mcsSPDSelector GetAxisVarSelectionIn();
-};
-
 // inherit from base class
 class GUISPDTreeWidgetItem:public SPDTreeWidgetItem
 {
@@ -166,6 +150,7 @@ public:
     GUISPDTreeWidgetItem(enum guiSPDSelector GUIVarSelectionIn, qSPDChart* SPDChartPtrIn);
     enum guiSPDSelector GetAxisVarSelectionIn();
 };
+
 
 // ------------------------------------
 class QccOS : public QObject

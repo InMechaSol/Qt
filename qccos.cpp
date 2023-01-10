@@ -2,12 +2,6 @@
 #include <math.h>
 #include <QString>
 
-// from motion control library
-float sqrtFloat(float inFloat)
-{
-    return std::sqrt(inFloat);
-}
-
 
 /////////////////////////////////////////////////////
 /// General SPD LineSeries
@@ -290,24 +284,7 @@ GUISPDTreeWidgetItem::GUISPDTreeWidgetItem(enum guiSPDSelector GUIVarSelectionIn
 {
 
 }
-/////////////////////////////////////////////////////
-/// SmartMotor, Axis SPD LineSeries
-//
-AxisLineSeriesMap::AxisLineSeriesMap(enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn, qSPDChart* spdChartPtr):
-    spd(AxisVarSelectionIn,smDevPtrIn),
-    spdLine(&spd,spdChartPtr)
-{
 
-    spdLine.setName(getSPDLabelString(AxisVarSelectionIn, smDevPtrIn->getSPDArray()));
-    spdChartPtr->addSeries(&spdLine);
-    spdLine.attachAxis(spdChartPtr->axes().at(0));
-    spdLine.attachAxis(spdChartPtr->axes().at(1));
-    spdLine.setUseOpenGL(true);
-}
-SPDLineSeries* AxisLineSeriesMap::getLine()
-{
-    return &spdLine;
-}
 /////////////////////////////////////////////////////
 /// General SPD Tree Widget Item
 //
@@ -324,19 +301,7 @@ void* SPDTreeWidgetItem::GetDataPtrIn()
     return SPDptr->getDataPtr();
 }
 
-/////////////////////////////////////////////////////
-/// SmartMotor, Axis SPD Tree Widget Item
-//
-AxisSPDTreeWidgetItem::AxisSPDTreeWidgetItem(enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn):
-    SPDTreeWidgetItem(&spd, QStringList({getSPDLabelString(AxisVarSelectionIn,smDevPtrIn->getSPDArray()),"",getSPDUnitsString(AxisVarSelectionIn,smDevPtrIn->getSPDArray())})),
-    spd(AxisVarSelectionIn, smDevPtrIn)
-{
 
-}
-enum mcsSPDSelector AxisSPDTreeWidgetItem::GetAxisVarSelectionIn()
-{
-    return (enum mcsSPDSelector)GetVarSelectionIn();
-}
 
 // ------------------------------------
 QccOS::QccOS(QObject *parent)
