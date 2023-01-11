@@ -157,6 +157,7 @@ public:
 #ifdef __USE_MCS
 
 #include "motionControl.h"
+#include "motionControlSerialize.h"
 
 // Motion Control, Smart Motor, Axis - Line Series Mapping via SPD
 // Makes each Axis SPD plotable
