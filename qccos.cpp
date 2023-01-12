@@ -139,7 +139,7 @@ void qSPDChart::addSeries(SPDLineSeries* SPDLinePtr)
 {
     // append to SPD Lines List and QChart,
     //  iff not already on the chart
-    if(nullptr==getFromChart(SPDLinePtr->getSPDptr()->getVarIndex()))
+    if(nullptr==getFromChart(SPDLinePtr->getSPDptr()->getDataPtr()))
     {
         SPDLines.append(SPDLinePtr);
         QtCharts::QChart::addSeries(SPDLinePtr);
@@ -147,7 +147,7 @@ void qSPDChart::addSeries(SPDLineSeries* SPDLinePtr)
 }
 void qSPDChart::removeSeries(SPDLineSeries* SPDLinePtr)
 {
-    if(SPDLinePtr==getFromChart(SPDLinePtr->getSPDptr()->getVarIndex()))
+    if(SPDLinePtr==getFromChart(SPDLinePtr->getSPDptr()->getDataPtr()))
     {
         SPDLines.removeOne(SPDLinePtr);
         QtCharts::QChart::removeSeries(SPDLinePtr);
@@ -183,11 +183,11 @@ void qSPDChart::scalePlot()
     chartAxes.at(0)->setRange(limits.minX, limits.maxX);
     chartAxes.at(1)->setRange(limits.minY, limits.maxY);
 }
-SPDLineSeries* qSPDChart::getFromChart(int index)
+SPDLineSeries* qSPDChart::getFromChart(void* dataPtr)
 {
     for(int i = 0; i<SPDLines.count(); i++)
     {
-        if(SPDLines.at(i)->getSPDptr()->getVarIndex()==index)
+        if(SPDLines.at(i)->getSPDptr()->getDataPtr()== dataPtr)
             return SPDLines.at(i);
     }
     return nullptr;

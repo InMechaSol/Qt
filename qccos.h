@@ -103,7 +103,7 @@ public:
     qSPDChart(QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = Qt::WindowFlags());
     void addSeries(SPDLineSeries* SPDLinePtr);
     void removeSeries(SPDLineSeries* SPDLinePtr);
-    SPDLineSeries* getFromChart(int index);
+    SPDLineSeries* getFromChart(void* DataPtr);
     void scalePlot();
     void reset();
     void UpdateChartSeries(float plotDurationIn, float plotBeginIn, UI_8 plotWindowRTIn);
