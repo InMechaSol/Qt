@@ -258,7 +258,7 @@ qSPDChart* GUISPD::getSPDChartPtr()
     return SPDChartPtr;
 }
 GUISPD::GUISPD(enum guiSPDSelector GUIVarSelectionIn, qSPDChart* SPDChartPtrIn):
-    SPDClass(GUIVarSelectionIn, SPDChartPtrIn, SPDChartPtrIn->getSPDArray())
+    SPDClass(GUIVarSelectionIn, SPDChartPtrIn->getSPDArray())
 {
     GUIVarSelection = GUIVarSelectionIn;
     SPDChartPtr = SPDChartPtrIn;
@@ -306,17 +306,18 @@ void* SPDTreeWidgetItem::GetDataPtrIn()
 /////////////////////////////////////////////////////
 /// SmartMotor, Axis SPD LineSeries
 //
-AxisLineSeriesMap::AxisLineSeriesMap(enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn, qSPDChart* spdChartPtr):
+AxisLineSeriesMap::AxisLineSeriesMap(UI_8 InstanceIDin, enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn, qSPDChart* spdChartPtr, bool useGL):
     spd(AxisVarSelectionIn,smDevPtrIn),
     spdLine(&spd,spdChartPtr)
 {
-
-    spdLine.setName(getSPDLabelString(AxisVarSelectionIn, smDevPtrIn->getSPDArray()));
+    spdLine.setName("M"+QString::number(InstanceIDin)+" "+getSPDLabelString(AxisVarSelectionIn, smDevPtrIn->getSPDArray()));
     spdChartPtr->addSeries(&spdLine);
     spdLine.attachAxis(spdChartPtr->axes().at(0));
     spdLine.attachAxis(spdChartPtr->axes().at(1));
-    spdLine.setUseOpenGL(true);
+
+    spdLine.setUseOpenGL(useGL);
 }
+
 SPDLineSeries* AxisLineSeriesMap::getLine()
 {
     return &spdLine;

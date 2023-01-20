@@ -163,13 +163,13 @@ public:
 // Makes each Axis SPD plotable
 class AxisLineSeriesMap
 {
-private:
+private:    
     AxisSPD spd;
     SPDLineSeries spdLine;
-
 public:
-    AxisLineSeriesMap(enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn, qSPDChart* spdChartPtr);//, int* plotWindowStartIn, int* plotWindowSamplesIn);
+    AxisLineSeriesMap(UI_8 InstanceIDin, enum mcsSPDSelector AxisVarSelectionIn, SmartMotorDevice* smDevPtrIn, qSPDChart* spdChartPtr, bool useGL = false);//, int* plotWindowStartIn, int* plotWindowSamplesIn);
     SPDLineSeries* getLine();
+    QString getLegendName();
 };
 
 // inherit from base class
